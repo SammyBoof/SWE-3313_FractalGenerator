@@ -8,9 +8,9 @@ public class FractalGUI{
     private static final GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
     private static MyJFrame menuFrame;
     private static JButton startSim,settings,quitSim,fullscreen,normalscreen,back;
-    private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private static final int maxHeight = (int) screenSize.getHeight();
-    private static final int maxWidth = (int) screenSize.getWidth();
+    private static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
+    private static final int MAX_HEIGHT = (int) SCREEN_SIZE.getHeight();
+    private static final int MAX_WIDTH = (int) SCREEN_SIZE.getWidth();
     public static boolean isFullScreen = false;
 
     //create listeners for all buttons in start and settings frames
@@ -19,22 +19,21 @@ public class FractalGUI{
             //get rid of the start frame and call the simulation
             menuFrame.setVisible(false);
             menuFrame.dispose();
-            SimulationScreenK.main(null);
-            //SimulationScreenK sim = new SimulationScreenK();
+            SimulationScreenK runSim = new SimulationScreenK();
         }//end actionPerformed
     }//end startButtonPressed
     public static class settingsButtonPressed implements ActionListener{
         public void actionPerformed(ActionEvent e){
             //go from start menu to settings menu
             if(isFullScreen) {
-                fullscreen.setBounds(maxWidth/4, maxHeight/8, maxWidth/2, maxHeight/6);
-                normalscreen.setBounds(maxWidth/4, (maxHeight*5)/12, maxWidth/2, maxHeight/6);
-                back.setBounds(maxWidth/4, (maxHeight*17)/24, maxWidth/2, maxHeight/6);
+                fullscreen.setBounds(MAX_WIDTH/4, MAX_HEIGHT/8, MAX_WIDTH/2, MAX_HEIGHT/6);
+                normalscreen.setBounds(MAX_WIDTH/4, (MAX_HEIGHT*5)/12, MAX_WIDTH/2, MAX_HEIGHT/6);
+                back.setBounds(MAX_WIDTH/4, (MAX_HEIGHT*17)/24, MAX_WIDTH/2, MAX_HEIGHT/6);
             }//end if statement
             else {
-                fullscreen.setBounds(maxWidth/8, maxHeight/24, maxWidth/4, maxHeight/12);
-                normalscreen.setBounds(maxWidth/8, (maxHeight*4)/24, maxWidth/4, maxHeight/12);
-                back.setBounds(maxWidth/8, (maxHeight*7)/24, maxWidth/4, maxHeight/12);
+                fullscreen.setBounds(MAX_WIDTH/8, MAX_HEIGHT/24, MAX_WIDTH/4, MAX_HEIGHT/12);
+                normalscreen.setBounds(MAX_WIDTH/8, (MAX_HEIGHT*4)/24, MAX_WIDTH/4, MAX_HEIGHT/12);
+                back.setBounds(MAX_WIDTH/8, (MAX_HEIGHT*7)/24, MAX_WIDTH/4, MAX_HEIGHT/12);
             }//end else statement
             menuFrame.repaint();
             menuFrame.remove(startSim);
@@ -59,9 +58,9 @@ public class FractalGUI{
             isFullScreen = true;
             //set to full screen
             device.setFullScreenWindow(menuFrame);
-            fullscreen.setBounds(maxWidth/4, maxHeight/8, maxWidth/2, maxHeight/6);
-            normalscreen.setBounds(maxWidth/4, (maxHeight*5)/12, maxWidth/2, maxHeight/6);
-            back.setBounds(maxWidth/4, (maxHeight*17)/24, maxWidth/2, maxHeight/6);
+            fullscreen.setBounds(MAX_WIDTH/4, MAX_HEIGHT/8, MAX_WIDTH/2, MAX_HEIGHT/6);
+            normalscreen.setBounds(MAX_WIDTH/4, (MAX_HEIGHT*5)/12, MAX_WIDTH/2, MAX_HEIGHT/6);
+            back.setBounds(MAX_WIDTH/4, (MAX_HEIGHT*17)/24, MAX_WIDTH/2, MAX_HEIGHT/6);
             menuFrame.repaint();
         }//end actionPerformed
     }//end fullscreenPressed
@@ -72,9 +71,9 @@ public class FractalGUI{
             isFullScreen = false;
             //set to default resolution
             device.setFullScreenWindow(null);
-            fullscreen.setBounds(maxWidth/8, maxHeight/24, maxWidth/4, maxHeight/12);
-            normalscreen.setBounds(maxWidth/8, (maxHeight*4)/24, maxWidth/4, maxHeight/12);
-            back.setBounds(maxWidth/8, (maxHeight*7)/24, maxWidth/4, maxHeight/12);
+            fullscreen.setBounds(MAX_WIDTH/8, MAX_HEIGHT/24, MAX_WIDTH/4, MAX_HEIGHT/12);
+            normalscreen.setBounds(MAX_WIDTH/8, (MAX_HEIGHT*4)/24, MAX_WIDTH/4, MAX_HEIGHT/12);
+            back.setBounds(MAX_WIDTH/8, (MAX_HEIGHT*7)/24, MAX_WIDTH/4, MAX_HEIGHT/12);
             menuFrame.repaint();
         }//end actionPerformed
     }//end normalScreenPressed
@@ -88,15 +87,15 @@ public class FractalGUI{
             menuFrame.add(settings);
             menuFrame.add(quitSim);
             if(isFullScreen) {
-                startSim.setBounds(maxWidth/4, maxHeight/8, maxWidth/2, maxHeight/6);
-                settings.setBounds(maxWidth/4, (maxHeight*5)/12, maxWidth/2, maxHeight/6);
-                quitSim.setBounds(maxWidth/4, (maxHeight*17)/24, maxWidth/2, maxHeight/6);
+                startSim.setBounds(MAX_WIDTH/4, MAX_HEIGHT/8, MAX_WIDTH/2, MAX_HEIGHT/6);
+                settings.setBounds(MAX_WIDTH/4, (MAX_HEIGHT*5)/12, MAX_WIDTH/2, MAX_HEIGHT/6);
+                quitSim.setBounds(MAX_WIDTH/4, (MAX_HEIGHT*17)/24, MAX_WIDTH/2, MAX_HEIGHT/6);
             }
 
             else {
-                startSim.setBounds(maxWidth/8, maxHeight/24, maxWidth/4, maxHeight/12);
-                settings.setBounds(maxWidth/8, (maxHeight*4)/24, maxWidth/4, maxHeight/12);
-                quitSim.setBounds(maxWidth/8, (maxHeight*7)/24, maxWidth/4, maxHeight/12);
+                startSim.setBounds(MAX_WIDTH/8, MAX_HEIGHT/24, MAX_WIDTH/4, MAX_HEIGHT/12);
+                settings.setBounds(MAX_WIDTH/8, (MAX_HEIGHT*4)/24, MAX_WIDTH/4, MAX_HEIGHT/12);
+                quitSim.setBounds(MAX_WIDTH/8, (MAX_HEIGHT*7)/24, MAX_WIDTH/4, MAX_HEIGHT/12);
             }
             menuFrame.repaint();
         }//end actionPerformed
@@ -125,8 +124,9 @@ public class FractalGUI{
         fullscreenPressed fList = new fullscreenPressed();
         normalscreenPressed nList = new normalscreenPressed();
         backButtonPressed bList = new backButtonPressed();
+
         //create frame
-        menuFrame.setSize(maxWidth/2,maxHeight/2);
+        menuFrame.setSize(MAX_WIDTH/2,MAX_HEIGHT/2);
         menuFrame.setLayout(null);
         //start button
         startSim.addActionListener(startList);
@@ -138,10 +138,11 @@ public class FractalGUI{
         quitSim.addActionListener(qList);
         menuFrame.add(quitSim);
         //set bounds for buttons
-        startSim.setBounds(maxWidth/8, maxHeight/24, maxWidth/4, maxHeight/12);
-        settings.setBounds(maxWidth/8, (maxHeight*4)/24, maxWidth/4, maxHeight/12);
-        quitSim.setBounds(maxWidth/8, (maxHeight*7)/24, maxWidth/4, maxHeight/12);
+        startSim.setBounds(MAX_WIDTH/8, MAX_HEIGHT/24, MAX_WIDTH/4, MAX_HEIGHT/12);
+        settings.setBounds(MAX_WIDTH/8, (MAX_HEIGHT*4)/24, MAX_WIDTH/4, MAX_HEIGHT/12);
+        quitSim.setBounds(MAX_WIDTH/8, (MAX_HEIGHT*7)/24, MAX_WIDTH/4, MAX_HEIGHT/12);
         menuFrame.repaint();
+        menuFrame.setVisible(true);
 
         //create buttons for setting menu
         //fullscreen button

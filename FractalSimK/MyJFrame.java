@@ -2,24 +2,16 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 public class MyJFrame extends JFrame{
-    final static int SIZE = 500;
     public MyJFrame(String title){
         super(title);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int maxHeight = (int) screenSize.getHeight();
+        int maxWidth = (int) screenSize.getWidth();
         this.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
         setDefaultLookAndFeelDecorated(true);
-        int width = (int)((monitorWidth() - SIZE + 0.5)/2) ;
-        int height = (int)((monitorHeight() - SIZE + 0.5)/2);
-        this.setLocation(width,height);
-        this.setSize(SIZE,SIZE);
+        this.setSize(maxWidth/2,maxHeight/2);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setFocusable(true);
     } //end Constructor
-
-    public static double monitorWidth(){
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        return screenSize.getWidth();
-    }
-    public static double monitorHeight(){
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        return screenSize.getHeight();
-    }
 }

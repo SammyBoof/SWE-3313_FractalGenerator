@@ -10,7 +10,6 @@ public class SimulationScreenK implements Runnable{
     //declare attributes
     private static final GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
     private static MyJFrame fractalFrame;
-    private JComboBox<String> generationType,type,iterations,set;
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private static final int maxHeight = (int) screenSize.getHeight();
     private static final int maxWidth = (int) screenSize.getWidth();
@@ -57,7 +56,18 @@ public class SimulationScreenK implements Runnable{
     public SimulationScreenK(){
         //create frame
         fractalFrame = new MyJFrame("Simulation");
+        Thread simulation = new Thread(this,"SimulationThread");
+        simulation.start();
     }//end constructor
+
+    @Override
+    public void run() {
+        createSimulation();
+        PaintPanel fractalPanel = new PaintPanel((maxHeight*11)/24);
+        fractalFrame.add(fractalPanel);
+        fractalFrame.repaint();
+        fractalFrame.setVisible(true);
+    }//end run
 
     public void createSimulation(){
         //create listeners
@@ -84,7 +94,7 @@ public class SimulationScreenK implements Runnable{
         genDescription.setBackground(Color.LIGHT_GRAY);
         genDescription.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
         comboPanel.add(genDescription);
-        generationType = new JComboBox<>(algorithms);
+        JComboBox<String> generationType = new JComboBox<>(algorithms);
         generationType.addActionListener(gList);
         generationType.addKeyListener(eList);
         generationType.setSelectedIndex(0);
@@ -94,7 +104,7 @@ public class SimulationScreenK implements Runnable{
         typeDescription.setBackground(Color.LIGHT_GRAY);
         typeDescription.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
         comboPanel.add(typeDescription);
-        type = new JComboBox<>(types);
+        JComboBox<String> type = new JComboBox<>(types);
         type.addActionListener(tList);
         type.addKeyListener(eList);
         type.setSelectedIndex(0);
@@ -104,7 +114,7 @@ public class SimulationScreenK implements Runnable{
         itrDescription.setBackground(Color.LIGHT_GRAY);
         itrDescription.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
         comboPanel.add(itrDescription);
-        iterations = new JComboBox<>(recursiveRuns);
+        JComboBox<String> iterations = new JComboBox<>(recursiveRuns);
         iterations.addActionListener(iList);
         iterations.addKeyListener(eList);
         iterations.setSelectedIndex(0);
@@ -114,7 +124,7 @@ public class SimulationScreenK implements Runnable{
         setDescription.setBackground(Color.LIGHT_GRAY);
         setDescription.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
         comboPanel.add(setDescription);
-        set = new JComboBox<>(setsArray);
+        JComboBox<String> set = new JComboBox<>(setsArray);
         set.addActionListener(sList);
         set.addKeyListener(eList);
         set.setSelectedIndex(0);
@@ -128,48 +138,4 @@ public class SimulationScreenK implements Runnable{
         fractalFrame.repaint();
         fractalFrame.setVisible(true);
     }//end createSimulation
-
-    @Override
-    public void run() {
-        try{
-            createSimulation();
-            PaintPanel fractalPanel = new PaintPanel();
-            fractalFrame.add(fractalPanel);
-            fractalFrame.repaint();
-            Thread paintDisplay = new Thread(fractalPanel);
-            paintDisplay.start();
-            fractalFrame.repaint();
-            //fractalPanel.setVisible(true);
-            /*long lastTime = System.nanoTime();
-            double ticks = 60.0;
-            double ns = 1000000000/ticks;
-            double delta = 0;
-            Thread paintDisplay = new Thread(fractalPanel);
-            paintDisplay.start();
-            while(!PaintPanel.isComplete){
-                long currentTime = System.nanoTime();
-                delta += (currentTime-lastTime)/ns;
-                lastTime = currentTime;
-                if(delta >= 1){
-                    System.out.println("frame update");
-                    //fractalPanel.paintComponent(fractalPanel.img);
-                    //fractalPanel.repaint();
-                    fractalFrame.repaint();
-                    //fractalFrame.setVisible(true);
-                    delta--;
-                }//end if statement
-            }//end while loop*/
-        }//end try statement
-        catch(Exception e){
-            System.err.println("ERROR: " + e.getMessage());
-            e.printStackTrace();
-        }//end catch statement
-        //fractalFrame.repaint();
-    }//end run
-
-    public static void main(String[] args){
-        //run the simulation screen
-        Thread simulation = new Thread(new SimulationScreenK());
-        simulation.start();
-    }//end main
 }//end SimulateScreenK
