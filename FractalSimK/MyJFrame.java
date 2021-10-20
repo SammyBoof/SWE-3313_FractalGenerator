@@ -2,6 +2,7 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 public class MyJFrame extends JFrame{
+    //custom JFrame
     public MyJFrame(String title){
         super(title);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -14,4 +15,4 @@ public class MyJFrame extends JFrame{
         this.setResizable(false);
         this.setFocusable(true);
     } //end Constructor
-}
+}//end MyJFrame

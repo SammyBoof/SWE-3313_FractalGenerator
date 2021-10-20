@@ -16,10 +16,10 @@ public class FractalGUI{
     //create listeners for all buttons in start and settings frames
     public static class startButtonPressed implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            //get rid of the start frame and call the simulation
+            //get rid of the start frame and call the simulation frame
             menuFrame.setVisible(false);
             menuFrame.dispose();
-            SimulationScreenK runSim = new SimulationScreenK();
+            new SimulationScreenK();
         }//end actionPerformed
     }//end startButtonPressed
     public static class settingsButtonPressed implements ActionListener{
@@ -35,6 +35,7 @@ public class FractalGUI{
                 normalscreen.setBounds(MAX_WIDTH/8, (MAX_HEIGHT*4)/24, MAX_WIDTH/4, MAX_HEIGHT/12);
                 back.setBounds(MAX_WIDTH/8, (MAX_HEIGHT*7)/24, MAX_WIDTH/4, MAX_HEIGHT/12);
             }//end else statement
+            //switch buttons displayed on the frame
             menuFrame.repaint();
             menuFrame.remove(startSim);
             menuFrame.remove(settings);
@@ -48,6 +49,7 @@ public class FractalGUI{
     public static class quitButtonPressed implements ActionListener{
         public void actionPerformed(ActionEvent e){
             //exit the program
+            menuFrame.dispose();
             System.exit(0);
         }//end actionPerformed
     }//end quitButtonPressed
@@ -101,20 +103,6 @@ public class FractalGUI{
         }//end actionPerformed
     }//end backButtonPressed
 
-    //constructor
-    public FractalGUI(){
-        //create frame and buttons
-        menuFrame = new MyJFrame("Welcome to CSE Fractal Simulation");
-        startSim = new JButton("Start Simulation");
-        settings = new JButton("Settings");
-        quitSim = new JButton("Quit");
-        fullscreen = new JButton("Fullscreen");
-        normalscreen = new JButton("Default Resolution");
-        back = new JButton("Back");
-        //call method to start thread
-        kickoff();
-    }//end constructor
-
     //create the menu
     public static void createStartMenu(){
         //instantiate listeners for start menu
@@ -160,7 +148,15 @@ public class FractalGUI{
 
     //run program
     public static void main(String[] args){
-        //run the start menu and settings menu
-        FractalGUI runFractal = new FractalGUI();
+        //create frame and buttons
+        menuFrame = new MyJFrame("Welcome to CSE Fractal Simulation");
+        startSim = new JButton("Start Simulation");
+        settings = new JButton("Settings");
+        quitSim = new JButton("Quit");
+        fullscreen = new JButton("Fullscreen");
+        normalscreen = new JButton("Default Resolution");
+        back = new JButton("Back");
+        //call method to start thread
+        kickoff();
     }//end main
 }//end FractalGUI
